@@ -1,0 +1,55 @@
+@import "tailwindcss";
+
+@theme {
+  --color-dark: #07151d;
+  --color-darker: #041019;
+  --color-primary: #4c6ef5;
+  --color-secondary: #00d0ff;
+}
+
+body {
+  background-color: var(--color-dark);
+  color: #eaf3ff;
+  font-family: 'Inter', system-ui, sans-serif;
+}
+
+/* --- Modern Full Stack Cyber Grid --- */
+.bg-scene {
+  position: fixed; 
+  inset: 0; 
+  z-index: -1; 
+  pointer-events: none;
+  background-color: var(--color-darker);
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  perspective: 1000px; /* Gives the 3D depth */
+}
+
+.tech-grid {
+  position: absolute;
+  width: 200vw; 
+  height: 200vh;
+  /* Draws the grid lines using your primary blue color */
+  background-image: 
+    linear-gradient(rgba(59, 130, 246, 0.15) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(59, 130, 246, 0.15) 1px, transparent 1px);
+  background-size: 60px 60px;
+  transform-origin: center center;
+  animation: gridPan 15s linear infinite;
+  will-change: transform;
+}
+
+/* This creates a beautiful fade at the edges so the grid doesn't just cut off */
+.glow-overlay {
+  position: absolute; 
+  inset: 0;
+  background: radial-gradient(circle at 50% 30%, transparent 10%, var(--color-darker) 75%);
+}
+
+/* Animates the grid pulling toward the user */
+@keyframes gridPan {
+  0% { transform: rotateX(65deg) translateY(0); }
+  100% { transform: rotateX(65deg) translateY(60px); } /* Must match background-size */
+}
