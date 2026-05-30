@@ -65,7 +65,7 @@ const Navbar = () => {
   whileTap={{ scale: 0.98 }}
   className="px-5 py-2.5 border border-white/20 text-white rounded-full hover:bg-white/10 hover:border-white/30 font-bold text-sm transition-colors"
 >
-  Aldrin R. Villanueva Resume
+  Resume
 </motion.a>
           <motion.a
             href="#contact"
