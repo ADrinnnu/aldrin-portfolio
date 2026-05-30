@@ -55,18 +55,18 @@ const Navbar = () => {
 
         {/* Resume + Connect */}
         <div className="hidden md:flex items-center gap-3 z-10">
-          <motion.a
-            href="/resume.pdf"
-            download
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.1 }}
-            whileHover={{ scale: 1.04, y: -2 }}
-            whileTap={{ scale: 0.98 }}
-            className="px-5 py-2.5 border border-white/20 text-white rounded-full hover:bg-white/10 hover:border-white/30 font-bold text-sm transition-colors"
-          >
-            Resume
-          </motion.a>
+        <motion.a
+  href="/downloads/Aldrin%20Villanueva%20Resume.pdf"
+  download="Aldrin Villanueva Resume.pdf"
+  initial={{ opacity: 0, x: 20 }}
+  animate={{ opacity: 1, x: 0 }}
+  transition={{ delay: 0.1 }}
+  whileHover={{ scale: 1.04, y: -2 }}
+  whileTap={{ scale: 0.98 }}
+  className="px-5 py-2.5 border border-white/20 text-white rounded-full hover:bg-white/10 hover:border-white/30 font-bold text-sm transition-colors"
+>
+  Aldrin R. Villanueva Resume
+</motion.a>
           <motion.a
             href="#contact"
             initial={{ opacity: 0, x: 20 }}
@@ -121,8 +121,7 @@ const Navbar = () => {
             </a>
           ))}
           <a
-            href="/resume.pdf"
-            download
+href="/downloads/Aldrin%20Villanueva%20Resume.pdf"            download
             onClick={() => setIsOpen(false)}
             className="block text-center px-5 py-2.5 border border-white/20 text-white rounded-full font-bold text-sm"
           >
