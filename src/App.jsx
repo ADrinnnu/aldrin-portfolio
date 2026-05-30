@@ -19,9 +19,8 @@ function App() {
       {/* The rest of your app stays exactly the same! */}
       <div className="min-h-screen relative z-10">
         <Navbar />
-        {/* ... */}
-        <main className="container mx-auto px-6 pt-24 space-y-10">
-          <Hero />
+        <Hero />
+        <main className="container mx-auto px-6 pt-10 space-y-10">
           <Education />
           <Skills />
           <Projects />

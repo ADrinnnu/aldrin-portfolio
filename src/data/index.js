@@ -14,7 +14,7 @@ import {
 
 export const personalInfo = {
   name: "Aldrin Villanueva",
-  title: "Aspiring Full stack Developer",
+  title: "Full Stack Developer & UI/UX Designer",
   bio: "I’m driven by a deep passion for technology and continuous learning. I diagnose and resolve hardware, network, and software issues, and I build end-to-end web solutions—from clean frontends to reliable APIs and deployment.",
   location: "Paniqui, Tarlac",
   phone: "(+63) 941 458 5662",
