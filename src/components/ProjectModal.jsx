@@ -67,6 +67,23 @@ const ProjectModal = ({ project, isOpen, onClose }) => {
                     ))}
                   </ul>
                 </div>
+
+                {/* Visit Live Project */}
+                {project.link && (
+                  <div className="pt-6 border-t border-white/10 flex items-center justify-between">
+                    <a
+                      href={project.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-[#00d0ff] to-[#4c6ef5] text-slate-950 font-bold text-sm hover:opacity-90 transition-opacity shadow-lg shadow-[#00d0ff]/20"
+                    >
+                      Visit Live Project
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                      </svg>
+                    </a>
+                  </div>
+                )}
               </div>
             </div>
           </motion.div>

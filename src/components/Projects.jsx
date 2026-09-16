@@ -53,14 +53,30 @@ const Projects = () => {
                 <h3 className="text-xl font-bold text-white mb-2 font-['Poppins']">{project.title}</h3>
                 <p className="text-slate-400 text-sm leading-relaxed mb-6 line-clamp-2">{project.description}</p>
                 
-                {/* The "Read Case Study" Button pushes to the bottom of the card */}
-                <button 
-                  onClick={() => setSelectedProject(project)}
-                  className="mt-auto flex items-center gap-2 text-sm font-bold text-[#00d0ff] hover:text-white transition-colors group w-fit"
-                >
-                  Read Case Study
-                  <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
-                </button>
+                {/* Bottom actions: Read Case Study & optional Direct Link */}
+                <div className="mt-auto flex items-center justify-between gap-4 pt-2">
+                  <button 
+                    onClick={() => setSelectedProject(project)}
+                    className="flex items-center gap-2 text-sm font-bold text-[#00d0ff] hover:text-white transition-colors group w-fit"
+                  >
+                    Read Case Study
+                    <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                  </button>
+
+                  {project.link && (
+                    <a
+                      href={project.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-slate-400 hover:text-[#00d0ff] transition-colors p-1"
+                      title="Visit Live Site"
+                    >
+                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                      </svg>
+                    </a>
+                  )}
+                </div>
               </div>
             </motion.div>
           ))

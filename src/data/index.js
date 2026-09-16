@@ -94,6 +94,7 @@ export const projects = [
       "AI Recommender algorithm for personalized shopping.",
       "Customization options for specific furniture pieces.",
       "Dynamic shopping cart and secure checkout flow."
-    ]
+    ],
+    link: "https://furnitune.vercel.app/"
   }
 ];
