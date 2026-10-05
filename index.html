@@ -4,7 +4,23 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>aldrin-portfolio</title>
+    <title>Aldrin Villanueva — Full Stack Developer &amp; UI/UX Designer</title>
+    <meta name="description" content="Portfolio of Aldrin R. Villanueva, a BSIT graduate (Web and Mobile Applications) building full-stack web apps, REST APIs, real-time features, and AI-powered applications." />
+    <link rel="canonical" href="https://aldrinportfolio.vercel.app/" />
+    <meta name="theme-color" content="#f7f7f5" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#0e0e11" media="(prefers-color-scheme: dark)" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <!-- Apply saved theme before paint to avoid a light/dark flash -->
+    <script>
+      (function () {
+        try {
+          var t = localStorage.getItem("theme");
+          var dark = t === "dark" || (t !== "light" && window.matchMedia("(prefers-color-scheme: dark)").matches);
+          if (dark) document.documentElement.classList.add("dark");
+        } catch (e) {}
+      })();
+    </script>
   </head>
   <body>
     <div id="root"></div>

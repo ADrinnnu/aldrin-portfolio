@@ -1,6 +1,11 @@
 import { useState } from "react";
-import { motion } from "framer-motion";
+import { FiArrowRight } from "react-icons/fi";
 import { personalInfo } from "../data";
+import SectionHeading from "./SectionHeading";
+import Reveal from "./Reveal";
+
+const fieldClass =
+  "w-full rounded-md border border-line bg-paper px-4 py-3 text-[14px] text-ink placeholder:text-faint transition-colors focus:border-ink focus:outline-none";
 
 const Contact = () => {
   const [formData, setFormData] = useState({ name: "", email: "", message: "", _honey: "" });
@@ -70,53 +75,38 @@ const Contact = () => {
     }
   };
 
+  const details = [
+    { label: "Email", value: personalInfo.email, href: `mailto:${personalInfo.email}` },
+    { label: "Location", value: personalInfo.location },
+    { label: "Phone", value: personalInfo.phone },
+  ];
+
   return (
-    // min-h-[85vh] and flex-col justify-center forces this section to take up the whole screen!
-    <section id="contact" className="min-h-[85vh] py-24 flex flex-col justify-center">
-      <div className="text-center mb-16">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-        >
-          <h2 className="text-4xl font-bold font-['Poppins'] mb-4 text-white">Contact Me</h2>
-          <p className="text-slate-400 max-w-2xl mx-auto">
-            Please fill out the form below to initiate discussing potential job opportunities.
-          </p>
-        </motion.div>
-      </div>
+    <section id="contact">
+      <SectionHeading index="07" title="contact" aside="say hello" />
 
-      <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto w-full">
-        {/* Left Card: Reach Out Info */}
-        <motion.div
-          initial={{ opacity: 0, x: -30 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true }}
-          className="bg-white/5 border border-white/10 p-8 rounded-xl shadow-xl h-fit"
-        >
-          <h3 className="text-2xl font-bold text-white mb-4 font-['Poppins']">Reach out</h3>
-          <p className="text-slate-400 mb-8 leading-relaxed">
-            Email me directly at <a href={`mailto:${personalInfo.email}`} className="text-[#00d0ff] hover:underline">{personalInfo.email}</a> or use the form to send a message.
+      <div className="grid gap-10 md:grid-cols-[1fr_1.25fr]">
+        {/* Left: Reach Out Info */}
+        <Reveal>
+          <h3 className="text-2xl font-medium tracking-tight text-ink">Reach out</h3>
+          <p className="mt-3 text-[14.5px] leading-relaxed text-muted">
+            Please fill out the form to initiate discussing potential job opportunities, or email me directly.
           </p>
-          <div className="space-y-4 text-slate-300 font-medium">
-            <p className="flex items-center gap-3">
-              <span className="text-xl">📍</span> {personalInfo.location}
-            </p>
-            <p className="flex items-center gap-3">
-              <span className="text-xl">📞</span> {personalInfo.phone}
-            </p>
-          </div>
-        </motion.div>
+          <dl className="mt-8 divide-y divide-line border-y border-line font-mono text-[12px]">
+            {details.map(({ label, value, href }) => (
+              <div key={label} className="flex items-center justify-between gap-4 py-3">
+                <dt className="uppercase tracking-[0.14em] text-faint">{label}</dt>
+                <dd className="min-w-0 truncate text-right text-ink">
+                  {href ? <a href={href} className="link-line">{value}</a> : value}
+                </dd>
+              </div>
+            ))}
+          </dl>
+        </Reveal>
 
-        {/* Right Card: The Contact Form */}
-        <motion.div
-          initial={{ opacity: 0, x: 30 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true }}
-          className="bg-white/5 border border-white/10 p-8 rounded-xl shadow-xl"
-        >
-          <form onSubmit={handleSubmit} className="flex flex-col gap-5">
+        {/* Right: The Contact Form */}
+        <Reveal delay={0.08}>
+          <form onSubmit={handleSubmit} className="flex flex-col gap-3">
             {/* Honeypot field (hidden from human visitors to trap spambots) */}
             <input
               type="text"
@@ -128,61 +118,37 @@ const Contact = () => {
               autoComplete="off"
             />
 
-            <div className="flex flex-col gap-2">
-              <label htmlFor="name" className="sr-only">Your name</label>
-              <input
-                type="text"
-                id="name"
-                name="name"
-                value={formData.name}
-                onChange={handleChange}
-                placeholder="Your name"
-                required
-                className="bg-white/5 border border-white/10 rounded-lg p-4 text-white placeholder-slate-500 focus:outline-none focus:border-[#00d0ff] focus:ring-1 focus:ring-[#00d0ff] transition-all"
-              />
-            </div>
-            <div className="flex flex-col gap-2">
-              <label htmlFor="email" className="sr-only">Email</label>
-              <input
-                type="email"
-                id="email"
-                name="email"
-                value={formData.email}
-                onChange={handleChange}
-                placeholder="Email"
-                required
-                className="bg-white/5 border border-white/10 rounded-lg p-4 text-white placeholder-slate-500 focus:outline-none focus:border-[#00d0ff] focus:ring-1 focus:ring-[#00d0ff] transition-all"
-              />
-            </div>
-            <div className="flex flex-col gap-2">
-              <label htmlFor="message" className="sr-only">Message</label>
-              <textarea
-                id="message"
-                name="message"
-                value={formData.message}
-                onChange={handleChange}
-                rows="4"
-                placeholder="Short message"
-                required
-                className="bg-white/5 border border-white/10 rounded-lg p-4 text-white placeholder-slate-500 focus:outline-none focus:border-[#00d0ff] focus:ring-1 focus:ring-[#00d0ff] transition-all resize-none"
-              ></textarea>
-            </div>
+            <label htmlFor="name" className="sr-only">Your name</label>
+            <input type="text" id="name" name="name" value={formData.name} onChange={handleChange} placeholder="Your name" required className={fieldClass} />
+
+            <label htmlFor="email" className="sr-only">Email</label>
+            <input type="email" id="email" name="email" value={formData.email} onChange={handleChange} placeholder="Email" required className={fieldClass} />
+
+            <label htmlFor="message" className="sr-only">Message</label>
+            <textarea id="message" name="message" value={formData.message} onChange={handleChange} rows="5" placeholder="Short message" required className={`${fieldClass} resize-none`} />
+
             <button
+              id="contact-submit"
               type="submit"
               disabled={status === "submitting"}
-              className="bg-gradient-to-r from-[#00d0ff] to-[#4c6ef5] text-slate-950 font-bold py-4 px-6 rounded-lg hover:opacity-90 hover:-translate-y-0.5 transition-all mt-2 shadow-lg shadow-[#00d0ff]/20 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="group mt-1 inline-flex items-center justify-center gap-2 rounded-md bg-ink px-6 py-3 font-mono text-[13px] text-paper transition-opacity hover:opacity-85 disabled:cursor-not-allowed disabled:opacity-50"
             >
               {status === "submitting" ? "Sending..." : "Send message"}
+              <FiArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
             </button>
 
             {statusMessage && (
-              <p className={`text-sm text-center font-medium mt-2 ${status === "success" ? "text-emerald-400" : status === "error" ? "text-rose-400" : "text-slate-400"
-                }`}>
+              <p
+                role="status"
+                className={`mt-1 font-mono text-[12px] ${
+                  status === "success" ? "text-emerald-500" : status === "error" ? "text-rose-500" : "text-muted"
+                }`}
+              >
                 {statusMessage}
               </p>
             )}
           </form>
-        </motion.div>
+        </Reveal>
       </div>
     </section>
   );

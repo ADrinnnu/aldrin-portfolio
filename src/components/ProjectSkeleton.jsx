@@ -1,25 +1,12 @@
-const ProjectSkeleton = () => {
-  return (
-    // The "animate-pulse" class is what gives it that modern loading shimmer!
-    <div className="bg-white/5 border border-white/10 rounded-xl overflow-hidden backdrop-blur-sm shadow-xl animate-pulse">
-      {/* Image Placeholder */}
-      <div className="aspect-video p-6 bg-white/5 flex items-center justify-center border-b border-white/5">
-        <div className="w-20 h-20 rounded-full bg-white/10"></div>
-      </div>
-      
-      {/* Text Placeholder */}
-      <div className="p-6">
-        {/* Title line */}
-        <div className="h-6 bg-white/10 rounded w-3/4 mb-4"></div>
-        {/* Description lines */}
-        <div className="space-y-2">
-          <div className="h-4 bg-white/10 rounded w-full"></div>
-          <div className="h-4 bg-white/10 rounded w-5/6"></div>
-          <div className="h-4 bg-white/10 rounded w-4/6"></div>
-        </div>
-      </div>
+const ProjectSkeleton = () => (
+  <li className="flex animate-pulse items-center gap-5 py-5" aria-hidden>
+    <div className="h-16 w-16 shrink-0 rounded-lg bg-soft sm:h-20 sm:w-20" />
+    <div className="flex-1 space-y-2.5">
+      <div className="h-4 w-1/3 rounded bg-soft" />
+      <div className="h-3 w-3/4 rounded bg-soft" />
+      <div className="h-3 w-1/4 rounded bg-soft" />
     </div>
-  );
-};
+  </li>
+);
 
 export default ProjectSkeleton;

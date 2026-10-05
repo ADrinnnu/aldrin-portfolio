@@ -1,6 +1,30 @@
+import { useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { FiX, FiArrowUpRight } from "react-icons/fi";
+
+const Block = ({ index, title, children }) => (
+  <div className="grid gap-2 sm:grid-cols-[9rem_1fr] sm:gap-6">
+    <h4 className="font-mono text-[11px] uppercase tracking-[0.16em] text-faint sm:pt-1">
+      <span className="text-ink">{index}</span> {title}
+    </h4>
+    {children}
+  </div>
+);
 
 const ProjectModal = ({ project, isOpen, onClose }) => {
+  // Close on Escape + lock background scroll while open
+  useEffect(() => {
+    if (!isOpen) return;
+    const onKey = (e) => e.key === "Escape" && onClose();
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    window.addEventListener("keydown", onKey);
+    return () => {
+      document.body.style.overflow = prev;
+      window.removeEventListener("keydown", onKey);
+    };
+  }, [isOpen, onClose]);
+
   return (
     // AnimatePresence is required for exit animations in Framer Motion
     <AnimatePresence>
@@ -10,81 +34,94 @@ const ProjectModal = ({ project, isOpen, onClose }) => {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           onClick={onClose} // Closes modal if you click the background
-          className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 bg-[#041019]/80 backdrop-blur-md overflow-y-auto"
+          className="fixed inset-0 z-[100] flex items-center justify-center overflow-y-auto bg-paper/75 p-4 backdrop-blur-md sm:p-6"
         >
           <motion.div
-            initial={{ opacity: 0, scale: 0.9, y: 20 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.9, y: 20 }}
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="project-modal-title"
+            initial={{ opacity: 0, y: 16, scale: 0.98 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 16, scale: 0.98 }}
+            transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
             onClick={(e) => e.stopPropagation()} // Prevents clicks inside the modal from closing it
-            className="bg-[#07151d] border border-white/10 rounded-2xl shadow-2xl max-w-3xl w-full max-h-[90vh] overflow-y-auto relative my-8"
+            className="relative my-8 max-h-[90vh] w-full max-w-2xl overflow-y-auto rounded-xl border border-line bg-paper shadow-[0_30px_80px_-30px_rgba(0,0,0,0.35)]"
           >
             {/* Close Button */}
-            <button 
+            <button
+              id="project-modal-close"
+              type="button"
               onClick={onClose}
-              className="absolute top-4 right-4 w-10 h-10 bg-white/5 hover:bg-white/10 rounded-full flex items-center justify-center text-slate-300 hover:text-white transition-colors border border-white/10 z-10"
+              aria-label="Close"
+              className="absolute right-4 top-4 z-10 grid h-8 w-8 place-items-center rounded-full border border-line bg-paper text-muted transition-colors hover:text-ink"
             >
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+              <FiX className="h-4 w-4" />
             </button>
 
-            {/* Modal Header Image */}
-            <div className="w-full h-48 sm:h-64 bg-gradient-to-b from-white/5 to-transparent flex items-center justify-center p-6 border-b border-white/5 relative overflow-hidden">
-               {/* A subtle glowing background effect */}
-               <div className="absolute inset-0 bg-[#4c6ef5]/10 blur-3xl rounded-full translate-y-1/2"></div>
-               <img src={project.image} alt={project.title} className="max-h-full object-contain drop-shadow-2xl relative z-10" />
+            {/* Header image on dot field */}
+            <div className="relative flex h-44 items-center justify-center overflow-hidden border-b border-line bg-soft p-8 sm:h-56">
+              <div aria-hidden className="dots dots-sm absolute inset-0 opacity-25 [mask-image:radial-gradient(circle_at_center,#000_20%,transparent_70%)]" />
+              <img src={project.image} alt={project.title} className="relative max-h-full object-contain" />
             </div>
 
-            {/* Modal Content */}
-            <div className="p-8">
-              <h3 className="text-3xl font-bold text-white mb-2 font-['Poppins']">{project.title}</h3>
-              <p className="text-[#00d0ff] font-medium mb-8">{project.description}</p>
+            {/* Content */}
+            <div className="p-6 sm:p-8">
+              <h3 id="project-modal-title" className="text-2xl font-medium tracking-tight text-ink">
+                {project.title}
+              </h3>
+              <p className="mt-1.5 text-[14px] text-muted">{project.description}</p>
 
-              <div className="space-y-8">
-                {/* The Problem */}
-                <div>
-                  <h4 className="text-lg font-bold text-white mb-3 flex items-center gap-2">
-                    <span className="text-[#4c6ef5]">01.</span> The Problem
-                  </h4>
-                  <p className="text-slate-400 leading-relaxed pl-7 border-l border-white/10">{project.problem}</p>
-                </div>
-
-                {/* The Solution */}
-                <div>
-                  <h4 className="text-lg font-bold text-white mb-3 flex items-center gap-2">
-                    <span className="text-[#4c6ef5]">02.</span> The Solution
-                  </h4>
-                  <p className="text-slate-400 leading-relaxed pl-7 border-l border-white/10">{project.solution}</p>
-                </div>
-
-                {/* Key Features */}
-                <div>
-                  <h4 className="text-lg font-bold text-white mb-3 flex items-center gap-2">
-                    <span className="text-[#4c6ef5]">03.</span> Key Features
-                  </h4>
-                  <ul className="text-slate-400 leading-relaxed pl-7 border-l border-white/10 space-y-2 list-disc list-inside">
+              <div className="mt-8 space-y-7 border-t border-line pt-7">
+                {project.role && (
+                  <Block index="—" title="Role">
+                    <p className="text-[14px] leading-relaxed text-muted">{project.role}</p>
+                  </Block>
+                )}
+                {project.tech && (
+                  <Block index="—" title="Tech">
+                    <p className="font-mono text-[12.5px] leading-relaxed text-muted">{project.tech.join(" · ")}</p>
+                  </Block>
+                )}
+                {project.status && (
+                  <Block index="—" title="Status">
+                    <p className="text-[14px] leading-relaxed text-muted">{project.status}</p>
+                  </Block>
+                )}
+                <Block index="01" title="Problem">
+                  <p className="text-[14px] leading-relaxed text-muted">{project.problem}</p>
+                </Block>
+                <Block index="02" title="Solution">
+                  <p className="text-[14px] leading-relaxed text-muted">{project.solution}</p>
+                </Block>
+                <Block index="03" title="Features">
+                  <ul className="space-y-2 text-[14px] leading-relaxed text-muted">
                     {project.features.map((feature, idx) => (
-                      <li key={idx} className="pl-2">{feature}</li>
+                      <li key={idx} className="flex gap-3">
+                        <span className="mt-[0.6em] h-1 w-1 shrink-0 rounded-full bg-faint" />
+                        {feature}
+                      </li>
                     ))}
                   </ul>
-                </div>
-
-                {/* Visit Live Project */}
-                {project.link && (
-                  <div className="pt-6 border-t border-white/10 flex items-center justify-between">
-                    <a
-                      href={project.link}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-[#00d0ff] to-[#4c6ef5] text-slate-950 font-bold text-sm hover:opacity-90 transition-opacity shadow-lg shadow-[#00d0ff]/20"
-                    >
-                      Visit Live Project
-                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                      </svg>
-                    </a>
-                  </div>
-                )}
+                </Block>
               </div>
+
+              {/* Visit Live Project */}
+              {project.link && (
+                <div className="mt-8 border-t border-line pt-6">
+                  <a
+                    href={project.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group inline-flex items-center gap-2 rounded-md bg-ink px-5 py-2.5 font-mono text-[12.5px] text-paper transition-opacity hover:opacity-85"
+                  >
+                    {project.linkLabel ? `Visit ${project.linkLabel}` : "Visit live project"}
+                    <FiArrowUpRight className="h-3.5 w-3.5 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+                  </a>
+                  {project.linkNote && (
+                    <p className="mt-3 text-[12.5px] leading-relaxed text-faint">{project.linkNote}</p>
+                  )}
+                </div>
+              )}
             </div>
           </motion.div>
         </motion.div>

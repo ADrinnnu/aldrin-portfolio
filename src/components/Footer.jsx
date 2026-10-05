@@ -1,22 +1,20 @@
-import { FiGithub, FiLinkedin, FiTwitter } from "react-icons/fi";
+import { FiArrowUpRight, FiArrowUp } from "react-icons/fi";
+import { socials } from "./Navbar";
 
-const Footer = () => {
-  return (
-    <footer className="w-full py-6 text-center border-t border-slate-800 bg-darker">
-      <div className="flex justify-center gap-6 mb-4 text-slate-400">
-        <a href="https://github.com/ADrinnnu" target="_blank" rel="noreferrer" className="hover:text-primary transition-colors">
-          <FiGithub size={24} />
+const Footer = () => (
+  <footer className="mt-24 flex flex-col gap-4 border-t border-line py-8 font-mono text-[11.5px] text-faint sm:flex-row sm:items-center sm:justify-between">
+    <p>Designed &amp; Built by Aldrin Villanueva · {new Date().getFullYear()}</p>
+    <div className="flex items-center gap-5">
+      {socials.map(({ name, href }) => (
+        <a key={name} href={href} target="_blank" rel="noreferrer" className="link-line inline-flex items-center gap-0.5 hover:text-ink">
+          {name.toLowerCase()} <FiArrowUpRight className="h-3 w-3" />
         </a>
-        <a href="https://www.linkedin.com/in/aldrin-villanueva-306781317" target="_blank" rel="noreferrer" className="hover:text-primary transition-colors">
-          <FiLinkedin size={24} />
-        </a>
-        
-      </div>
-      <p className="text-slate-500 font-mono text-sm">
-        Designed & Built by Aldrin Villanueva
-      </p>
-    </footer>
-  );
-};
+      ))}
+      <a href="#home" className="link-line inline-flex items-center gap-0.5 hover:text-ink">
+        top <FiArrowUp className="h-3 w-3" />
+      </a>
+    </div>
+  </footer>
+);
 
 export default Footer;
